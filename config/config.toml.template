@@ -1,0 +1,25 @@
+# Run test via hostnames using cert of https request (validity.py)
+run_hosts = true
+# Run test via certnames using crt.sh (certsh.py)
+run_certs = false
+
+[email_config]
+from_address = "test@mail.com"
+password = "password"
+smtp_server = "smtp.mail.com"
+smtp_port = 123
+to_email = ["user@example.com"]
+
+# hosts are for the hostname based check (i.e. run_hosts)
+[[hosts]]
+url = "example.com"
+port = 443
+
+[[hosts]]
+url = "example.de"
+port = 443
+
+
+# certs are for the crt.sh based check (i.e. run_certs)
+[[certs]]
+name = "*.example.com"
