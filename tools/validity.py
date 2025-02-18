@@ -1,3 +1,4 @@
+import json
 import socket
 import ssl
 import datetime
@@ -14,13 +15,13 @@ def check_hostname(hostname: str, port: int):
             certificate = ssock.getpeercert()
 
     # Extract the certificate name and expiration date
-    print(certificate)
+    print(f"Found Certificate: {certificate}")
     certificate_name = certificate["subject"][0][0][1]
     cert_expires = datetime.datetime.strptime(
         certificate["notAfter"], "%b %d %H:%M:%S %Y %Z"
     )
     days_to_expiration = (cert_expires - datetime.datetime.now()).days
-    print(days_to_expiration)
+    print(f"Valid for {days_to_expiration} days")
 
     # create our mailer object
     mail_client = MailClient(
@@ -59,7 +60,6 @@ def check_hostname(hostname: str, port: int):
 
 def runner():
     print("\nRunning Hostname based check")
-    print(config)
     for host in config.hosts:
         check_hostname(host.url, host.port)
 

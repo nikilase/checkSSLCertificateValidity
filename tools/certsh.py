@@ -13,7 +13,7 @@ def check_certsh():
         url = f"{base_url}{cert_name}&exclude=expired"
         result = requests.get(url)
         if result.status_code != 200:
-            print(result.text)
+            print(f"Found cert: {result.text}")
             continue
         certs = result.json()
 
@@ -47,7 +47,7 @@ def check_certsh():
 
         print(f"Last Expiry: {latest}")
         days_to_expiration = (latest - datetime.now()).days
-        print(days_to_expiration)
+        print(f"Valid for {days_to_expiration} days")
 
         # Send normal expiration info
         if days_to_expiration in [35, 28, 21, 14]:
